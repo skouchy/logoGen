@@ -24,7 +24,7 @@ const generateSVG = userInput => {
     }
 
     const logoText = `
-      <text x="${size / 2 + 10}" y="${size / 1.5}" text-anchor="middle" fill="${userInput.textColor}" font-size="60">${userInput.logo_text}</text>
+      <text x="${size / 2 + 10}" y="${size / 1.5}" text-anchor="middle" dominant-baseline="auto" fill="${userInput.textColor}" font-size="60">${userInput.logo_text}</text>
     `;
 
     return `
