@@ -1,10 +1,6 @@
 const inquirer = require('inquirer');
-// const color = require('color');
-// const { validateText, validateColor } = require('./validate/validate');
-// const generateLogo = require('./utils/generate-logo')
-// const Circle = require('./shapes')
-// const generateSVG = require()
-// Class for the SVG logo?
+const fs = require('fs');
+
 class LogoContent {
     constructor(shape, shapeColor, logoTxt, colorTxt) {
         this.shape = shape;
@@ -18,59 +14,44 @@ const promptUser = logoContent => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'logoTxt',
-            message: 'Enter up to 3 characters to represent your brand',
-            // validate: validateText,
-            
+            name: 'logo_text',
+            message: 'Choose up to 3 characters that your logo will contain (Required)',
+            validate: logoInput => {
+                // * validate that there are not more than 3 chars input by the user * //
+                if (logoInput.length > 3) {
+                    console.log('Logo text can only be three characters!');
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         },
         {
-            type: 'input',
-            name: 'colorTxt',
-            message: 'Choose the color of your logo text. Enter your color choice by its name OR hexidecimal code.',
-            // validate: validateColor,
-        },
-        {
+            // * use list type so only one option can be selected * //
             type: 'list',
             name: 'shape',
-            message: "Please choose a shape for your logo",
-            choices: ['circle', 'triangle', 'square'],
+            message: 'Select a shape doooood:',
+            choices: ['circle', 'triangle', 'square']
         },
         {
             type: 'input',
-            name: 'shapeColor',
-            message: 'Choose the color of your logo shape by typing in your color.',
-            // validate: validateColor,
+            name: 'color',
+            message: 'Please enter a color keyword (OR a hexadecimal number)! (Required)',
+            validate: colorInput => {
+                if (colorInput) {
+                    return true;
+                } else {
+                    console.log('Please enter a color keyword (OR a hexadecimal number)... bitch');
+                    return false;
+                }
+            }
         },
-        // another Validate with return?
-        // validate: (input) => {
-        //     const color= Color(input)
-        //     return =???
-        // }
-        // Need an NPM for color and how do you pull from it?
+    ]).then(data => {
+        console.log(data);
+        console.log('goodbye');
+        return;
+    });
+};
 
-    ])
-        // .then((logoContent => {
-        //     generateLogo(logoContent)
-        //     // console.log(logoContent);
-        // }))
-    // var shapes;
-    // if (answers.shapes === 'circle') {
-    //     shapes = new Circle()
-    //     console.log(shapes)
-    // }
-    // if (answers.shapes === 'square') {
-    //     shapes = new Circle()
-    //     console.log(shapes)
-    // }
-    // if (answers.shapes === 'triangle') {
-    //     shapes = new Circle()
-    //     console.log(shapes)
-    // }
-    // shapes.setColor
-    // askQuestions();
-    // What function do I need to do generate te SVG file?
-    // generateSVG
 
-}
 promptUser();
-// module.exports
