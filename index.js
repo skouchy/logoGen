@@ -1,34 +1,40 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const { error } = require('console');
 const { Circle, Square, Triangle } = require('./lib/shapes');
 const validateColor = require('validate-color').default;
 
 
 // Create and SVG string based on user input
 const generateSVG = userInput => {
-    const size = 80;
+    const width = 300;
+    const height = 200;
+
     let shape;
 
     switch (userInput.shape) {
         case 'circle':
-            shape = new Circle(userInput.color, size).draw(size / 2 + 10, size / 2 + 10);
+            const cX = width / 2;
+            const cY = height / 2;
+            const r = Math.min(width, height) / 2;
+            shape = new Circle(userInput.color).render(cX, cY, r);
             break;
         case 'triangle':
-            shape = new Triangle(userInput.color, size).draw(10, 10);
+            const points = `20, ${height} ${width / 2}, 0 ${width - 20}, ${height}`;
+            shape = new Triangle(userInput.color).render(points);
             break;
         case 'square':
         default:
-            shape = new Square(userInput.color, size).draw(10, 10);
+            const size = Math.min(width, height);
+            shape = new Square(userInput.color).render(50, 10, size);
             break;
     }
 
     const logoText = `
-      <text x="${size / 2 + 10}" y="${size / 1.5}" text-anchor="middle" dominant-baseline="auto" fill="${userInput.textColor}" font-size="60">${userInput.logo_text}</text>
+      <text x="${width / 2}" y="${height / 2}" text-anchor="middle" dominant-baseline="middle" fill="${userInput.textColor}" font-size="75">${userInput.logoTxt}</text>
     `;
 
     return `
-      <svg viewBox="0 0 ${size + 20} ${size + 20}" xmlns="http://www.w3.org/2000/svg">
+      <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
         ${shape}
         ${logoText}
       </svg>
@@ -40,14 +46,14 @@ const generateLogo = () => {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'logo_text',
+            name: 'logoTxt',
             message: 'Choose up to 3 characters that your logo will contain (Required)',
             validate: textInput => {
                 if (textInput.length <= 3) {
                     console.log(textInput.length);
                     return true;
                 } else {
-                    console.log('Please limit Text to 3 characters Max');
+                    console.log('Please limit logo text to 3 characters Max');
                 return false;
                 }
             }
@@ -76,9 +82,9 @@ const generateLogo = () => {
         const svgString = generateSVG(userInput);
 
         // Write the SVG string to a file
-        fs.writeFile('logo.svg', svgString, (error) => {
+        fs.writeFile('./dist/logo.svg', svgString, (error) => {
             if (error) {
-                console.error(error);
+                console.log(error);
             } else {
                 console.log('Check out the new SVG logo!');
             }
