@@ -1,22 +1,52 @@
-Packages - What tools do I need for this?
-- Install Jest and Inquirer
-Entry way to application: index.js 
-Instantiate a new Menu class object here and run the main function.
-Classes:
-1. Menu class - Ask the questions for the prompt
-    1a. We need to have a main method and everything will go in here
-    1b. collect user input with inquirer prompts
-        1ba. Text for the logo
-        1bb. Text color
-        1bc. Shape Type
-        1bd. Shape Color
-    1c. Which shape did the user select?
-        1ca. Instantiate a new shape object with the chosen shape
-        1cb. Using the object, set the color
-    1d. Instantiate a new SVG object with the text AND the shape selected
-    1e. Write the SVG object to file called `logo.svg`
-2. Shape (color)
-    2a. Circle (Classes, render())
-    2b. Square (Classes, render())
-    2c. Triangle (Classes, render())
-3. SVG class (text, shape, render())
+# logoGen
+Simple SVG logo generator Command Line application
+
+## Description
+
+Allows a user to quickly generate a customized SVG logo straight from the terminal. The user must install this application to run locally (install directions included below) in order to be prompted with questions of a choice background shape and color, as well as up to 3 characters, also generated with choice of colored text! And voila! Simple logo generated with little effort or thought.
+
+
+
+## Table of Contents (Optional)
+
+- [Installation](#installation) 
+- [Usage](#usage)
+- [Links](#links)
+- [License](#license)
+- [Tests](#tests)
+
+
+
+## Installation
+
+Initialize: `npm init -y`
+<br>
+Install Dependencies: `npm i`
+<br>
+Run: `node index`
+<br>
+
+## Usage
+* javaScript
+* NodeJS [*color-validator* & *fs- writeFile*]
+* inquirer v8.2.4
+* Jest
+
+
+## Links
+### Link to Repo
+https://github.com/skouchy/logoGen
+
+### Screen Recording
+https://drive.google.com/file/d/1iyI9_cUgD-Nz5Q9UvwKnNWqWsOpmnoRr/view?usp=sharing
+
+
+## License
+[MIT](https://opensource.org/badge/license/MIT/)
+### Badge
+
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+## Tests
+
+- npm Jest
